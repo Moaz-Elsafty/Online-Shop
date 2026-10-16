@@ -19,5 +19,6 @@ class OrderAdmin(admin.ModelAdmin):
         'created',
         'updated'
     ]
+    readonly_fields = ['stripe_id']
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
