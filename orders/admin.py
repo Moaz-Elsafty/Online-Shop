@@ -50,6 +50,12 @@ def order_detail(obj):
     html = f'<a href="{url}">View</a>'
     return mark_safe(html)
 
+def order_pdf(obj):
+    url = reverse('orders:admin_order_pdf', args=[obj.id])
+    html = f'<a href="{url}">PDF</a>'
+    return mark_safe(html)
+order_pdf.short_description = 'Invoice'
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = [
@@ -65,6 +71,7 @@ class OrderAdmin(admin.ModelAdmin):
         'created',
         'updated',
         order_detail,
+        order_pdf,
     ]
     readonly_fields = ['stripe_id']
     list_filter = ['paid', 'created', 'updated']
