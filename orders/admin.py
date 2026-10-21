@@ -35,6 +35,8 @@ def export_to_csv(modeladmin, request, queryset):
         data_row = []
         for field in fields:
             value = getattr(obj, field.name)
+            if isinstance(value, str) and value.startswith(('=', '+', '-', '@')):
+                value = "'" + value
             if isinstance(value, datetime.datetime):
                 value = value.strftime('%d/%m/%Y')
             data_row.append(value)
