@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from decouple import config
 
@@ -143,3 +144,8 @@ STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_API_VERSION = config('STRIPE_API_VERSION')
 STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+
+WEASYPRINT_DLL_DIRECTORIES = config('WEASYPRINT_DLL_DIRECTORIES', default='')
+if WEASYPRINT_DLL_DIRECTORIES:
+    os.environ['WEASYPRINT_DLL_DIRECTORIES'] = WEASYPRINT_DLL_DIRECTORIES
+    os.environ['PATH'] = os.environ.get('PATH', '') + os.pathsep + WEASYPRINT_DLL_DIRECTORIES
